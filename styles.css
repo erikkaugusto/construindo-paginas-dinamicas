@@ -155,3 +155,7 @@ ul {
 .container-lista {
     width: 100%;
 }
+
+#lista-de-compras {
+    margin-bottom: 2em;
+}

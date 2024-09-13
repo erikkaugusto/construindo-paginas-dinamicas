@@ -1,4 +1,7 @@
+import { editarItem } from "./editarItem.js";
+import { excluirItem } from "./excluirItem.js";
 import { verificarListaComprados } from "./verificarListaComprados.js";
+import { criarAtualizarData } from "./criarAtualizarData.js";
 
 const listaDeCompras = document.getElementById("lista-de-compras");
 const listaComprados = document.getElementById("lista-comprados");
@@ -61,25 +64,34 @@ export function criarItemDaLista(item) {
     imagemRemover.src = "img/delete.svg";
     imagemRemover.alt = "Remover";
 
+    botaoRemover.addEventListener("click", function(){
+        excluirItem(itemDaLista);
+    });
+
     botaoRemover.appendChild(imagemRemover);
     containerBotoes.appendChild(botaoRemover);
 
-    const botaoEditar = document.createElement("button");
-    botaoEditar.classList.add("item-lista-button")
+    const itemData = document.createElement("p");
+    itemData.innerHTML = criarAtualizarData();
+    itemData.classList.add("texto-data");
 
     const imagemEditar = document.createElement("img");
     imagemEditar.src = "img/edit.svg";
     imagemEditar.alt = "Editar";
+
+    const botaoEditar = document.createElement("button");
+    botaoEditar.classList.add("item-lista-button");
+
+    botaoEditar.addEventListener("click", function(){
+        editarItem(itemDaLista);
+        itemData.innerHTML = criarAtualizarData();
+    })
 
     botaoEditar.appendChild(imagemEditar);
     containerBotoes.appendChild(botaoEditar);
 
     containerItemLista.appendChild(containerNomeDoItem);
     containerItemLista.appendChild(containerBotoes);
-
-    const itemData = document.createElement("p");
-    itemData.innerText = `${new Date().toLocaleDateString("pt-BR", { weekday: "long" })} (${new Date().toLocaleDateString()}) às ${new Date().toLocaleTimeString("pt-BR", { hour: "numeric", minute: "numeric" })}`;
-    itemData.classList.add("texto-data");
 
     itemDaLista.appendChild(containerItemLista);
     itemDaLista.appendChild(itemData);
